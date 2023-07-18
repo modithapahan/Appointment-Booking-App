@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\customer\FrontendController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -35,4 +36,8 @@ Route::group(['middleware' => 'customer'], function () {
 /* Admin Routes */
 Route::group(['middleware' => ['admin', 'auth']], function () {
     Route::get('/admin/dashboard', [DashboardController::class, "index"])->middleware('admin')->name('admin.dashboard');
+    Route::get('/customer/all', [CustomerController::class, 'index'])->middleware('admin')->name('customer.all');
+    Route::get('/customer/{id}/edit', [CustomerController::class, 'edit'])->middleware('admin')->name('customer.edit');
+    Route::post('/customer/{id}/edit', [CustomerController::class, 'update'])->middleware('admin')->name('customer.update');
+    Route::get('/customer/{id}/delete', [CustomerController::class, 'destroy'])->middleware('admin')->name('customer.delete');
 });
