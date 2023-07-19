@@ -29,8 +29,9 @@ Route::group(['middleware' => 'guest_user'], function () {
 Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth')->name('logout');
 
 /* Customer Routes */
+Route::get('/', [FrontendController::class, "index"])->middleware('customer')->name('customer.home');
 Route::group(['middleware' => 'customer'], function () {
-    Route::get('/', [FrontendController::class, "index"])->middleware('customer')->name('customer.home');
+    
 });
 
 /* Admin Routes */
