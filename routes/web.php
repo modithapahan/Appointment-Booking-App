@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\customer\AppointmentController;
 use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\customer\FrontendController;
 use App\Http\Controllers\LoginController;
@@ -30,8 +31,9 @@ Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth')-
 
 /* Customer Routes */
 Route::get('/', [FrontendController::class, "index"])->name('customer.home');
-Route::group(['middleware' => 'customer'], function () {
-    
+Route::group(['middleware' => ['customer', 'auth']], function () {
+    Route::get('/customer/appointment', [AppointmentController::class, 'create'])->middleware('customer')->name('customer.appointment');
+    Route::post('/customer/appointment/create', [AppointmentController::class, 'store'])->middleware('customer')->name('customer.appointment.create');
 });
 
 /* Admin Routes */
