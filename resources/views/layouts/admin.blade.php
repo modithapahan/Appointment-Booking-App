@@ -856,7 +856,7 @@
                         <a class="nav-link active" aria-current="page" href="{{ route('admin.dashboard') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Appointment</a>
+                        <a class="nav-link" href="{{route('admin.appointment.view')}}">Approve Appointments</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('customer.all')}}">Manage Customers</a>

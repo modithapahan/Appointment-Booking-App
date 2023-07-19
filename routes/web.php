@@ -43,4 +43,7 @@ Route::group(['middleware' => ['admin', 'auth']], function () {
     Route::get('/customer/{id}/edit', [CustomerController::class, 'edit'])->middleware('admin')->name('customer.edit');
     Route::post('/customer/{id}/edit', [CustomerController::class, 'update'])->middleware('admin')->name('customer.update');
     Route::get('/customer/{id}/delete', [CustomerController::class, 'destroy'])->middleware('admin')->name('customer.delete');
+    Route::get('/customer/appointments', [AppointmentController::class, 'index'])->middleware('admin')->name('admin.appointment.view');
+    Route::put('/customer/appointments/{id}/approve', [AppointmentController::class, 'approve'])->middleware('admin')->name('admin.appointment.approve');
+    Route::put('/customer/appointments/{id}/decline', [AppointmentController::class, 'decline'])->middleware('admin')->name('admin.appointment.decline');
 });

@@ -16,7 +16,30 @@ class AppointmentController extends Controller
      */
     public function index()
     {
+        $appointments = Appointment::all();
+        return view('admin.appointment_manage', compact('appointments'));
+    }
 
+    public function approve(Request $request, $id) {
+        $appointment = Appointment::findOrfail($id);
+        $appointment->approved = true;
+        $appointment->save();
+
+        /* Decline other appointments for the same day*/
+        $appointmentDate = Carbon::parse($appointment->date)->format('Y-m-d');
+        Appointment::where('date', $appointmentDate)
+                   ->where('id', '!=', $appointment->id)
+                   ->update(['approved' => false]);
+
+        return redirect()->back();
+    }
+
+    public function decline(Request $request, $id) {
+        $appointment = Appointment::findOrFail($id);
+        $appointment->approved = false;
+        $appointment->save();
+
+        return redirect()->back();
     }
 
     /**
