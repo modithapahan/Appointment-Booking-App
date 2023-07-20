@@ -841,7 +841,7 @@
 
     {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid d-flex justify-content-between">
+        <div class="container-fluid">
             <div>
                 <a class="navbar-brand" href="{{ route('customer.home') }}">Appointment Booking App</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
