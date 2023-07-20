@@ -25,6 +25,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
+        return view('admin.customer_create');
     }
 
     /**
@@ -39,15 +40,13 @@ class CustomerController extends Controller
         ]);
 
         if ($validate->fails()) {
-            return back();
+            return back()->withErrors($validate)->withInput();
         } else {
-            $user = User::create([
+            User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
             ]);
-
-            auth()->login($user);
 
             return redirect(route('customer.all'));
         }
@@ -77,7 +76,8 @@ class CustomerController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'name' => 'sometimes|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'sometimes|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
         ]);
 
         if ($validate->fails()) {
@@ -88,6 +88,7 @@ class CustomerController extends Controller
                 $customer->update([
                     'name' => $request->name,
                     'email' => $request->email,
+                    'password' => bcrypt($request->password),
                 ]);
                 return redirect(route('customer.all'));
             } else {

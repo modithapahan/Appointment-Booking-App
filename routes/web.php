@@ -39,6 +39,8 @@ Route::group(['middleware' => ['customer', 'auth']], function () {
 /* Admin Routes */
 Route::group(['middleware' => ['admin', 'auth']], function () {
     Route::get('/admin/dashboard', [DashboardController::class, "index"])->middleware('admin')->name('admin.dashboard');
+    Route::get('/customer/create', [CustomerController::class, 'create'])->middleware('admin')->name('customer.create.view');
+    Route::post('/customer/create', [CustomerController::class, 'store'])->middleware('admin')->name('customer.create');  
     Route::get('/customer/all', [CustomerController::class, 'index'])->middleware('admin')->name('customer.all');
     Route::get('/customer/{id}/edit', [CustomerController::class, 'edit'])->middleware('admin')->name('customer.edit');
     Route::post('/customer/{id}/edit', [CustomerController::class, 'update'])->middleware('admin')->name('customer.update');

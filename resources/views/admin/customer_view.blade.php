@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="container">
+        <div class="mt-4 mb-3">
+            <a href="{{route('customer.create.view')}}" class="btn btn-success">New Customer</a>
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr>
